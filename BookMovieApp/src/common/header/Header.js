@@ -6,7 +6,7 @@ import ActionButton from "../components/ActionButton";
 export default function Header() {
   return (
     <div className="header">
-      <img id="logo" src={Logo} alt="Book Movie App Logo" />
+      <img id='logo' src={Logo} alt="Book Movie App Logo" />
       <ActionButton
         className="nav-btn"
         variant="contained"
@@ -14,12 +14,12 @@ export default function Header() {
         buttonName="Login"
       />
       {/* should always be displayed in the header when a user clicks on a released movie */}
-      <ActionButton
+      {/* <ActionButton
         className="nav-btn"
         variant="contained"
         color="primary"
         buttonName="Book Show"
-      />
+      /> */}
     </div>
   );
 }

@@ -1,0 +1,9 @@
+.home-header {
+  background-color: #ff9999;
+  text-align: center;
+}
+
+.home-header-text {
+  padding: 8px;
+  font-size: 1rem;
+}

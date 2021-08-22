@@ -6,7 +6,7 @@ import ActionButton from "../components/ActionButton";
 export default function Header() {
   return (
     <div className="header">
-      <img id='logo' src={Logo} alt="Book Movie App Logo" />
+      <img id="logo" src={Logo} alt="Book Movie App Logo" />
       <ActionButton
         className="nav-btn"
         variant="contained"

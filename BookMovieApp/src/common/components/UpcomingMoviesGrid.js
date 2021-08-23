@@ -16,8 +16,6 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: "nowrap",
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: "translateZ(0)",
-    //height works better at 200 rather than 250
-    height: 200,
   },
 }));
 
@@ -26,7 +24,7 @@ export default function UpcomingMoviesGrid(props) {
 
   return (
     <div className={classes.root}>
-      <ImageList className={classes.imageList} cols={6}>
+      <ImageList className={classes.imageList} rowHeight={250} cols={6}>
         {props.movieData
           // .filter((item) => {
           //   return item.status === "PUBLISHED";

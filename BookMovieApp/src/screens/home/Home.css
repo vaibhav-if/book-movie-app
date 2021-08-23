@@ -7,3 +7,17 @@
   padding: 8px;
   font-size: 1rem;
 }
+
+.flex-container {
+  display: flex;
+}
+
+.released-movie-grid {
+  flex-basis: 76%;
+  margin: 16px;
+}
+
+.movies-filter {
+  flex-basis: 24%;
+  margin: 16px;
+}

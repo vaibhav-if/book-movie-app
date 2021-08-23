@@ -1,0 +1,42 @@
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import ImageList from "@material-ui/core/ImageList";
+import ImageListItem from "@material-ui/core/ImageListItem";
+import ImageListItemBar from "@material-ui/core/ImageListItemBar";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    overflow: "visible",
+    backgroundColor: theme.palette.background.paper,
+  },
+  imageList: {
+    overflow: "visible",
+  },
+  icon: {
+    color: "rgba(255, 255, 255, 0.54)",
+  },
+}));
+
+export default function ReleasedMoviesGrid(props) {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <ImageList rowHeight={350} cols={4} className={classes.imageList}>
+        {props.movieData.map((item) => (
+          <ImageListItem key={item["poster_url"]}>
+            <img src={item["poster_url"]} alt={item.title} />
+            <ImageListItemBar
+              title={item.title}
+              //TODO: change date format
+              subtitle={<span>Release Date: {item["release_date"]}</span>}
+            />
+          </ImageListItem>
+        ))}
+      </ImageList>
+    </div>
+  );
+}

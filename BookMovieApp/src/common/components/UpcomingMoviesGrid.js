@@ -16,11 +16,12 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: "nowrap",
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: "translateZ(0)",
+    //height works better at 200 rather than 250
     height: 200,
   },
 }));
 
-export default function SingleLineImageList(props) {
+export default function UpcomingMoviesGrid(props) {
   const classes = useStyles();
 
   return (

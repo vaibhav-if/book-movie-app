@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import SingleLineImageList from "../../common/components/SingleLineImageList";
+import UpcomingMoviesGrid from "../../common/components/UpcomingMoviesGrid";
 import Header from "../../common/header/Header";
 import "./Home.css";
 
@@ -23,7 +23,7 @@ export default function Home() {
       <div className="home-header">
         <div className="home-header-text">Upcoming Movies</div>
       </div>
-      <SingleLineImageList movieData={upcomingMoviesList} />
+      <UpcomingMoviesGrid movieData={upcomingMoviesList} />
     </Fragment>
   );
 }

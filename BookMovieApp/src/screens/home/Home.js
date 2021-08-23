@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
+import FilterCard from "../../common/components/FilterCard";
 import ReleasedMoviesGrid from "../../common/components/ReleasedMoviesGrid";
 import UpcomingMoviesGrid from "../../common/components/UpcomingMoviesGrid";
 import Header from "../../common/header/Header";
@@ -29,7 +30,9 @@ export default function Home() {
         <div className="released-movie-grid">
           <ReleasedMoviesGrid movieData={moviesList} />
         </div>
-        <div className="movies-filter"></div>
+        <div className="movies-filter">
+          <FilterCard />
+        </div>
       </div>
     </Fragment>
   );

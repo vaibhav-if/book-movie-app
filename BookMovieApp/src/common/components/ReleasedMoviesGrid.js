@@ -26,16 +26,21 @@ export default function ReleasedMoviesGrid(props) {
   return (
     <div className={classes.root}>
       <ImageList rowHeight={350} cols={4} className={classes.imageList}>
-        {props.movieData.map((item) => (
-          <ImageListItem key={item["poster_url"]}>
-            <img src={item["poster_url"]} alt={item.title} />
-            <ImageListItemBar
-              title={item.title}
-              //TODO: change date format
-              subtitle={<span>Release Date: {item["release_date"]}</span>}
-            />
-          </ImageListItem>
-        ))}
+        {/* TODO: Change cursor on hover and add click function */}
+        {props.movieData
+          .filter((item) => {
+            return item.status === "RELEASED";
+          })
+          .map((item) => (
+            <ImageListItem key={item["poster_url"]}>
+              <img src={item["poster_url"]} alt={item.title} />
+              <ImageListItemBar
+                title={item.title}
+                //TODO: change date format
+                subtitle={<span>Release Date: {item["release_date"]}</span>}
+              />
+            </ImageListItem>
+          ))}
       </ImageList>
     </div>
   );

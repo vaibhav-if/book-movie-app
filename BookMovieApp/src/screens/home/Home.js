@@ -11,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     async function getMoviesList() {
       const rawResponse = await fetch(
-        "http://localhost:8085/api/v1/movies?page=1&limit=17"
+        "http://localhost:8085/api/v1/movies?page=1&limit=100"
       );
       const data = await rawResponse.json();
       setMoviesList(data.movies);

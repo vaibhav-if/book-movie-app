@@ -26,10 +26,9 @@ export default function UpcomingMoviesGrid(props) {
     <div className={classes.root}>
       <ImageList className={classes.imageList} rowHeight={250} cols={6}>
         {props.movieData
-          // .filter((item) => {
-          //   return item.status === "PUBLISHED";
-          // })
-          // Data of upcoming movies not enough
+          .filter((item) => {
+            return item.status === "PUBLISHED";
+          })
           .map((item) => (
             <ImageListItem key={item["poster_url"]}>
               <img src={item["poster_url"]} alt={item.title} />

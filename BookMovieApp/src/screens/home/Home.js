@@ -31,7 +31,7 @@ export default function Home() {
           <ReleasedMoviesGrid movieData={moviesList} />
         </div>
         <div className="movies-filter">
-          <FilterCard />
+          <FilterCard movieData={moviesList} />
         </div>
       </div>
     </Fragment>

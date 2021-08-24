@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -10,6 +10,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import Checkbox from "@material-ui/core/Checkbox";
+import ListItemText from "@material-ui/core/ListItemText";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,8 +32,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FilterCard() {
+export default function FilterCard(props) {
   const classes = useStyles();
+
+  let name = [];
+  let genres = [];
+
+  const movieData = props.movieData.filter((item) => {
+    return item.status === "RELEASED";
+  });
+
+  for (let data of movieData) {
+    for (let artist of data.artists) {
+      name.push(artist["first_name"] + " " + artist["last_name"]);
+    }
+  }
+
+  for (let data of movieData) {
+    for (let genre of data.genres) {
+      genres.push(genre);
+    }
+  }
+
+  genres = genres.filter((value, index, self) => {
+    return self.indexOf(value) === index;
+  });
+
+  const [artistName, setArtistName] = useState([]);
+  const [movieGenre, setMovieGenre] = useState([]);
+
+  const artistChangeHandler = (event) => {
+    setArtistName(event.target.value);
+  };
+  const genreChangeHandler = (event) => {
+    setMovieGenre(event.target.value);
+  };
 
   return (
     <Card className={classes.root}>
@@ -45,14 +80,44 @@ export default function FilterCard() {
         </FormControl>
         <FormControl className={classes.form}>
           <InputLabel id="genre">Genre</InputLabel>
-          <Select labelId="genre">
-            <MenuItem></MenuItem>
+          <Select
+            labelId="genre"
+            multiple
+            value={movieGenre}
+            onChange={genreChangeHandler}
+            input={<Input />}
+            renderValue={(selected) => selected.join(", ")}
+          >
+            {genres.map((item) => (
+              <MenuItem key={item} value={item}>
+                <Checkbox
+                  color="primary"
+                  checked={movieGenre.indexOf(item) > -1}
+                />
+                <ListItemText primary={item} />
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
         <FormControl className={classes.form}>
           <InputLabel id="artist">Artist</InputLabel>
-          <Select labelId="artist">
-            <MenuItem></MenuItem>
+          <Select
+            labelId="artist"
+            multiple
+            value={artistName}
+            onChange={artistChangeHandler}
+            input={<Input />}
+            renderValue={(selected) => selected.join(", ")}
+          >
+            {name.map((item) => (
+              <MenuItem key={item} value={item}>
+                <Checkbox
+                  color="primary"
+                  checked={artistName.indexOf(item) > -1}
+                />
+                <ListItemText primary={item} />
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
         <FormControl className={classes.form}>

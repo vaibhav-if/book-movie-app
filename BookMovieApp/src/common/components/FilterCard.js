@@ -21,10 +21,10 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: 14,
     color: theme.palette.primary.light,
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
   },
   form: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
     minWidth: 192,
   },
   apply: {
@@ -75,13 +75,13 @@ export default function FilterCard(props) {
           FIND MOVIES BY:
         </Typography>
         <FormControl className={classes.form}>
-          <InputLabel id="movie-name">Movie Name</InputLabel>
-          <Input labelId="movie-name" />
+          <InputLabel htmlFor="movie-name">Movie Name</InputLabel>
+          <Input id="movie-name" />
         </FormControl>
         <FormControl className={classes.form}>
-          <InputLabel id="genre">Genre</InputLabel>
+          <InputLabel htmlFor="genre">Genre</InputLabel>
           <Select
-            labelId="genre"
+            id="genre"
             multiple
             value={movieGenre}
             onChange={genreChangeHandler}
@@ -100,9 +100,9 @@ export default function FilterCard(props) {
           </Select>
         </FormControl>
         <FormControl className={classes.form}>
-          <InputLabel id="artist">Artist</InputLabel>
+          <InputLabel htmlFor="artist">Artist</InputLabel>
           <Select
-            labelId="artist"
+            id="artist"
             multiple
             value={artistName}
             onChange={artistChangeHandler}

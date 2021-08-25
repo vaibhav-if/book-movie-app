@@ -12,7 +12,6 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import FormHelperText from "@material-ui/core/FormHelperText";
-// import Alert from "@material-ui/lab/Alert";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -108,6 +107,7 @@ export default function LoginModal() {
   const [reqEmail, setReqEmail] = useState("classes.dispNone");
   const [reqPassword, setReqPassword] = useState("classes.dispNone");
   const [reqContact, setReqContact] = useState("classes.dispNone");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -129,8 +129,51 @@ export default function LoginModal() {
     setPassword(event.target.value);
   };
 
-  const loginClickHandler = (event) => {
-    console.log(username + " " + password);
+  const loginClickHandler = () => {
+    if (username && password) {
+      async function loginForm() {
+        const param = window.btoa(`${username}:${password}`);
+        try {
+          const rawResponse = await fetch(
+            "http://localhost:8085/api/v1/auth/login",
+            {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json;charset=UTF-8",
+                authorization: `Basic ${param}`,
+              },
+            }
+          );
+          const result = await rawResponse.json();
+          if (rawResponse.ok) {
+            window.sessionStorage.setItem(
+              "access-token",
+              rawResponse.headers.get("access-token")
+            );
+            setUsername("");
+            setPassword("");
+            setIsLoggedIn(true);
+            handleClose();
+            alert(`login successful`);
+          } else {
+            const error = new Error();
+            error.message = result.message || "Something went wrong.";
+            throw error;
+          }
+        } catch (e) {
+          alert(e);
+        }
+      }
+      loginForm();
+    } else {
+      alert("Please fill both username and password");
+    }
+  };
+
+  const logoutClickHandler = () => {
+    window.sessionStorage.clear();
+    setIsLoggedIn(false);
   };
 
   const firstNameChangeHandler = (event) => {
@@ -326,14 +369,25 @@ export default function LoginModal() {
 
   return (
     <div>
-      <Button
-        className="nav-btn"
-        variant="contained"
-        color="default"
-        onClick={handleOpen}
-      >
-        Login
-      </Button>
+      {isLoggedIn ? (
+        <Button
+          className="nav-btn"
+          variant="contained"
+          color="default"
+          onClick={logoutClickHandler}
+        >
+          Logout
+        </Button>
+      ) : (
+        <Button
+          className="nav-btn"
+          variant="contained"
+          color="default"
+          onClick={handleOpen}
+        >
+          Login
+        </Button>
+      )}
       <Modal
         open={open}
         onClose={handleClose}

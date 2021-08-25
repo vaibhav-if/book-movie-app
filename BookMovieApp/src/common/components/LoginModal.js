@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
 export default function LoginModal() {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
-  const [modalStyle] = React.useState(getModalStyle);
+  const [modalStyle] = useState(getModalStyle);
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(0);
@@ -112,23 +112,21 @@ export default function LoginModal() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   const handleOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
     setValue(0);
   };
 
+  //----- Login Handling code starts here -----
   const usernameChangeHandler = (event) => {
     setUsername(event.target.value);
   };
   const passwordChangeHandler = (event) => {
     setPassword(event.target.value);
   };
-
   const loginClickHandler = () => {
     if (username && password) {
       async function loginForm() {
@@ -155,7 +153,6 @@ export default function LoginModal() {
             setPassword("");
             setIsLoggedIn(true);
             handleClose();
-            alert(`login successful`);
           } else {
             const error = new Error();
             error.message = result.message || "Something went wrong.";
@@ -170,12 +167,15 @@ export default function LoginModal() {
       alert("Please fill both username and password");
     }
   };
+  //----- Login Handling code ends here -----
 
+  //----- Logout Handling code -----
   const logoutClickHandler = () => {
     window.sessionStorage.clear();
     setIsLoggedIn(false);
   };
 
+  //----- Register Handling code starts here -----
   const firstNameChangeHandler = (event) => {
     setFirstName(event.target.value);
   };
@@ -219,6 +219,11 @@ export default function LoginModal() {
           const result = await rawResponse.json();
 
           if (rawResponse.ok) {
+            setFirstName("");
+            setLastName("");
+            setEmail("");
+            setRegPassword("");
+            setContact("");
             alert("Registration Successful. Please Login!");
           } else {
             const error = new Error();
@@ -250,6 +255,7 @@ export default function LoginModal() {
       alert("Please fill required fields");
     }
   };
+  //----- Register Handling code ends here -----
 
   const body = (
     <div style={modalStyle} className={classes.paper}>

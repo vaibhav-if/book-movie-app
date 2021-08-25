@@ -12,6 +12,7 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import FormHelperText from "@material-ui/core/FormHelperText";
+// import Alert from "@material-ui/lab/Alert";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -80,6 +81,12 @@ const useStyles = makeStyles((theme) => ({
   form: {
     textAlign: "center",
   },
+  dispNone: {
+    display: "none",
+  },
+  dispBlock: {
+    display: "block",
+  },
 }));
 
 export default function LoginModal() {
@@ -96,11 +103,11 @@ export default function LoginModal() {
   const [email, setEmail] = useState("");
   const [regPassword, setRegPassword] = useState("");
   const [contact, setContact] = useState("");
-  const [reqFirstName, setReqFirstName] = useState("dispNone");
-  const [reqLastName, setReqLastName] = useState("dispNone");
-  const [reqEmail, setReqEmail] = useState("dispNone");
-  const [reqPassword, setReqPassword] = useState("dispNone");
-  const [reqContact, setReqContact] = useState("dispNone");
+  const [reqFirstName, setReqFirstName] = useState("classes.dispNone");
+  const [reqLastName, setReqLastName] = useState("classes.dispNone");
+  const [reqEmail, setReqEmail] = useState("classes.dispNone");
+  const [reqPassword, setReqPassword] = useState("classes.dispNone");
+  const [reqContact, setReqContact] = useState("classes.dispNone");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -143,15 +150,62 @@ export default function LoginModal() {
   };
 
   const registerClickHandler = () => {
-    firstName === ""
-      ? setReqFirstName("dispBlock")
-      : setReqFirstName("dispNone");
-    lastName === "" ? setReqLastName("dispBlock") : setReqLastName("dispNone");
-    email === "" ? setReqEmail("dispBlock") : setReqEmail("dispNone");
-    regPassword === ""
-      ? setReqPassword("dispBlock")
-      : setReqPassword("dispNone");
-    contact === "" ? setReqContact("dispBlock") : setReqContact("dispNone");
+    if (firstName && lastName && email && regPassword && contact) {
+      async function registerForm() {
+        const params = {
+          email_address: email,
+          first_name: firstName,
+          last_name: lastName,
+          mobile_number: contact,
+          password: regPassword,
+        };
+
+        try {
+          const rawResponse = await fetch(
+            "http://localhost:8085/api/v1/signup",
+            {
+              body: JSON.stringify(params),
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json;charset=UTF-8",
+              },
+            }
+          );
+
+          const result = await rawResponse.json();
+
+          if (rawResponse.ok) {
+            alert("Registration Successful. Please Login!");
+          } else {
+            const error = new Error();
+            error.message = result.message || "Something went wrong.";
+            throw error;
+          }
+        } catch (e) {
+          alert(e);
+        }
+      }
+      registerForm();
+    } else {
+      firstName === ""
+        ? setReqFirstName("classes.dispBlock")
+        : setReqFirstName("classes.dispNone");
+      lastName === ""
+        ? setReqLastName("classes.dispBlock")
+        : setReqLastName("classes.dispNone");
+      email === ""
+        ? setReqEmail("classes.dispBlock")
+        : setReqEmail("classes.dispNone");
+      regPassword === ""
+        ? setReqPassword("classes.dispBlock")
+        : setReqPassword("classes.dispNone");
+      contact === ""
+        ? setReqContact("classes.dispBlock")
+        : setReqContact("classes.dispNone");
+
+      alert("Please fill required fields");
+    }
   };
 
   const body = (

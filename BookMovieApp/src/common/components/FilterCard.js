@@ -48,24 +48,46 @@ export default function FilterCard(props) {
     }
   }
 
+  //To remove duplicate artists
+  name = name.filter((value, index, self) => {
+    return self.indexOf(value) === index;
+  });
+
   for (let data of movieData) {
     for (let genre of data.genres) {
       genres.push(genre);
     }
   }
 
+  //To remove duplicate genres
   genres = genres.filter((value, index, self) => {
     return self.indexOf(value) === index;
   });
 
-  const [artistName, setArtistName] = useState([]);
+  const [movieName, setMovieName] = useState("");
   const [movieGenre, setMovieGenre] = useState([]);
+  const [artistName, setArtistName] = useState([]);
+  const [releaseDateStart, setReleaseDateStart] = useState("");
+  const [releaseDateEnd, setReleaseDateEnd] = useState("");
 
+  const movieNameChangeHandler = (event) => {
+    setMovieName(event.target.value);
+  };
   const artistChangeHandler = (event) => {
     setArtistName(event.target.value);
   };
   const genreChangeHandler = (event) => {
     setMovieGenre(event.target.value);
+  };
+  const releaseDateStartChangeHandler = (event) => {
+    setReleaseDateStart(event.target.value);
+  };
+  const releaseDateEndChangeHandler = (event) => {
+    setReleaseDateEnd(event.target.value);
+  };
+  const applyFilterClickHandler = () => {
+    const filterString = `&title=${movieName}&start_date=${releaseDateStart}&end_date=${releaseDateEnd}&genre=${movieGenre}&artists=${artistName}`;
+    props.applyFilter(filterString);
   };
 
   return (
@@ -76,7 +98,7 @@ export default function FilterCard(props) {
         </Typography>
         <FormControl className={classes.form}>
           <InputLabel htmlFor="movie-name">Movie Name</InputLabel>
-          <Input id="movie-name" />
+          <Input id="movie-name" onChange={movieNameChangeHandler} />
         </FormControl>
         <FormControl className={classes.form}>
           <InputLabel htmlFor="genre">Genre</InputLabel>
@@ -128,6 +150,7 @@ export default function FilterCard(props) {
             InputLabelProps={{
               shrink: true,
             }}
+            onChange={releaseDateStartChangeHandler}
           />
         </FormControl>
         <FormControl className={classes.form}>
@@ -138,10 +161,16 @@ export default function FilterCard(props) {
             InputLabelProps={{
               shrink: true,
             }}
+            onChange={releaseDateEndChangeHandler}
           />
         </FormControl>
         <FormControl className={classes.form}>
-          <Button className={classes.apply} variant="contained" color="primary">
+          <Button
+            className={classes.apply}
+            variant="contained"
+            color="primary"
+            onClick={applyFilterClickHandler}
+          >
             APPLY
           </Button>
         </FormControl>

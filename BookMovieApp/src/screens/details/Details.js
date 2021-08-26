@@ -29,14 +29,7 @@ export default function Details(props) {
   useEffect(() => {
     async function getMoviesList() {
       const rawResponse = await fetch(
-        `http://localhost:8085/api/v1/movies/${props.match.params.id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-cache",
-          },
-        }
+        `http://localhost:8085/api/v1/movies/${props.match.params.id}`
       );
       const data = await rawResponse.json();
       setMovieDetails(data);
@@ -44,19 +37,9 @@ export default function Details(props) {
     getMoviesList();
   }, []);
 
-  const videoId = () => {
-    //to get video id from youtube trailer url
-    let video_id = movieDetails.trailer_url.split("v=")[1];
-    const ampersandPosition = video_id.indexOf("&");
-    if (ampersandPosition !== -1) {
-      video_id = video_id.substring(0, ampersandPosition);
-    }
-    return video_id;
-  };
-
   return (
     <Fragment>
-      <Header />
+      <Header isViewingDetails={true} movieId={props} />
       <div className="container">
         <div className="back-home-container">
           <Link to="/">
@@ -99,7 +82,10 @@ export default function Details(props) {
             <Typography className="trailer">
               <span className="bold">Trailer:</span>
             </Typography>
-            <YouTube videoId={videoId} className="youtube-video" />
+            <YouTube
+              videoId={movieDetails.trailer_url.split("?v=")[1]}
+              className="youtube-video"
+            />
           </div>
           <div className="details-right">
             <Typography>

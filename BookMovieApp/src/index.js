@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import "typeface-roboto";
 import registerServiceWorker from "./registerServiceWorker";
-import Home from "./screens/home/Home";
+import Details from "./screens/details/Details";
 
-ReactDOM.render(<Home />, document.getElementById("root"));
+ReactDOM.render(<Details />, document.getElementById("root"));
 registerServiceWorker();

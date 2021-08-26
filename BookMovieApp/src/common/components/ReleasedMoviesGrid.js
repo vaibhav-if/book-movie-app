@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import ImageList from "@material-ui/core/ImageList";
 import ImageListItem from "@material-ui/core/ImageListItem";
 import ImageListItemBar from "@material-ui/core/ImageListItemBar";
+import "./ReleasedMoviesGrid.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,6 +24,10 @@ const useStyles = makeStyles((theme) => ({
 export default function ReleasedMoviesGrid(props) {
   const classes = useStyles();
 
+  const posterClickHandler = (id) => {
+    console.log(id);
+  };
+
   return (
     <div className={classes.root}>
       <ImageList rowHeight={350} cols={4} className={classes.imageList}>
@@ -32,7 +37,11 @@ export default function ReleasedMoviesGrid(props) {
             return item.status === "RELEASED";
           })
           .map((item) => (
-            <ImageListItem key={item["poster_url"]}>
+            <ImageListItem
+              key={item["poster_url"]}
+              className="movie-poster"
+              onClick={() => posterClickHandler(item.id)}
+            >
               <img src={item["poster_url"]} alt={item.title} />
               <ImageListItemBar
                 title={item.title}

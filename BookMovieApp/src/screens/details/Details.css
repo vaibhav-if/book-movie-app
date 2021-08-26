@@ -1,0 +1,41 @@
+.container {
+  margin: 8px 12px 0 24px;
+  /* height: 24px; */
+}
+.back-home-container {
+  height: 24px;
+}
+.back-home {
+  display: inline;
+}
+.back-home:hover {
+  cursor: pointer;
+}
+
+.details-container {
+  display: flex;
+}
+.details-left,
+.details-right {
+  flex-basis: 20%;
+}
+.details-mid {
+  flex-basis: 60%;
+  margin: 0 30px;
+}
+.poster {
+  width: stretch;
+}
+.bold {
+  font-weight: bold;
+}
+.plot,
+.trailer {
+  margin-top: 16px !important;
+}
+.youtube-video {
+  width: stretch;
+}
+.artist {
+  margin: 16px 0 16px 0 !important;
+}

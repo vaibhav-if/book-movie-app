@@ -6,7 +6,6 @@ import Button from "@material-ui/core/Button";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import PropTypes from "prop-types";
-import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -26,7 +25,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          <div>{children}</div>
         </Box>
       )}
     </div>
@@ -76,6 +75,9 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     textAlign: "center",
+  },
+  formControl: {
+    margin: theme.spacing(1),
   },
 }));
 
@@ -278,7 +280,7 @@ export default function LoginModal(props) {
       </AppBar>
       <TabPanel value={value} index={0}>
         <form className={classes.form}>
-          <FormControl required>
+          <FormControl required className={classes.formControl}>
             <InputLabel htmlFor="username">Username</InputLabel>
             <Input
               id="username"
@@ -289,7 +291,7 @@ export default function LoginModal(props) {
               <span className="red">Required</span>
             </FormHelperText>
           </FormControl>
-          <FormControl required>
+          <FormControl required className={classes.formControl}>
             <InputLabel htmlFor="password">Password</InputLabel>
             <Input
               id="password"
@@ -315,7 +317,7 @@ export default function LoginModal(props) {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <form className={classes.form}>
-          <FormControl required>
+          <FormControl required className={classes.formControl}>
             <InputLabel htmlFor="firstName">First Name</InputLabel>
             <Input
               id="firstName"
@@ -327,7 +329,7 @@ export default function LoginModal(props) {
               <span className="red">Required</span>
             </FormHelperText>
           </FormControl>
-          <FormControl required>
+          <FormControl required className={classes.formControl}>
             <InputLabel htmlFor="lastName">Last Name</InputLabel>
             <Input
               id="lastName"
@@ -339,7 +341,7 @@ export default function LoginModal(props) {
               <span className="red">Required</span>
             </FormHelperText>
           </FormControl>
-          <FormControl required>
+          <FormControl required className={classes.formControl}>
             <InputLabel htmlFor="email">Email</InputLabel>
             <Input
               id="email"
@@ -351,7 +353,7 @@ export default function LoginModal(props) {
               <span className="red">Required</span>
             </FormHelperText>
           </FormControl>
-          <FormControl required>
+          <FormControl required className={classes.formControl}>
             <InputLabel htmlFor="regPassword">Password</InputLabel>
             <Input
               id="regPassword"
@@ -363,7 +365,7 @@ export default function LoginModal(props) {
               <span className="red">Required</span>
             </FormHelperText>
           </FormControl>
-          <FormControl required>
+          <FormControl required className={classes.formControl}>
             <InputLabel htmlFor="contact">Contact No</InputLabel>
             <Input
               id="contact"

@@ -70,7 +70,7 @@ export default function Details(props) {
             />
           </div>
           <div className="details-mid">
-            <Typography variant="headline" component="h2" gutterBottom>
+            <Typography variant="h2" component="h2" gutterBottom>
               {movieDetails.title}
             </Typography>
             <Typography>
@@ -108,7 +108,8 @@ export default function Details(props) {
             </Typography>
             <Typography>
               <StyledRating
-                icon={<StarBorderIcon className="ratingIcon" />}
+                name="user-ratings"
+                icon={<StarBorderIcon />}
                 value={rating}
                 onChange={(event, newRating) => {
                   setRating(newRating);

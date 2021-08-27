@@ -35,7 +35,7 @@ export default function Home(props) {
   const applyFilter = (filterString) => {
     async function getMoviesList() {
       const rawResponse = await fetch(
-        `http://localhost:8085/api/v1/movies?page=1&limit=100${filterString}`
+        `http://localhost:8085/api/v1/movies?page=1&limit=100&status=released${filterString}`
       );
       const data = await rawResponse.json();
       setReleasedMoviesList(data.movies);
@@ -60,44 +60,36 @@ export default function Home(props) {
         rowHeight={250}
         cols={6}
       >
-        {upcomingMoviesList
-          .filter((item) => {
-            return item.status === "PUBLISHED";
-          })
-          .map((item) => (
-            <ImageListItem key={item["poster_url"]}>
-              <img src={item["poster_url"]} alt={item.title} />
-              <ImageListItemBar title={item.title} />
-            </ImageListItem>
-          ))}
+        {upcomingMoviesList.map((item) => (
+          <ImageListItem key={item["poster_url"]}>
+            <img src={item["poster_url"]} alt={item.title} />
+            <ImageListItemBar title={item.title} />
+          </ImageListItem>
+        ))}
       </ImageList>
 
       {/* Released Movies Grid */}
       <div className="flex-container">
         <div className="released-movie-grid">
           <ImageList rowHeight={350} gap={12} cols={4}>
-            {releasedMoviesList
-              .filter((item) => {
-                return item.status === "RELEASED";
-              })
-              .map((item) => (
-                <ImageListItem
-                  key={item["poster_url"]}
-                  onClick={() => posterClickHandler(item)}
-                  className="movie-poster"
-                >
-                  <img src={item["poster_url"]} alt={item.title} />
-                  <ImageListItemBar
-                    title={item.title}
-                    subtitle={
-                      <span>
-                        Release Date:{" "}
-                        {new Date(item["release_date"]).toDateString()}
-                      </span>
-                    }
-                  />
-                </ImageListItem>
-              ))}
+            {releasedMoviesList.map((item) => (
+              <ImageListItem
+                key={item["poster_url"]}
+                onClick={() => posterClickHandler(item)}
+                className="movie-poster"
+              >
+                <img src={item["poster_url"]} alt={item.title} />
+                <ImageListItemBar
+                  title={item.title}
+                  subtitle={
+                    <span>
+                      Release Date:{" "}
+                      {new Date(item["release_date"]).toDateString()}
+                    </span>
+                  }
+                />
+              </ImageListItem>
+            ))}
           </ImageList>
         </div>
         <div className="movies-filter">

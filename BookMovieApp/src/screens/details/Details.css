@@ -21,15 +21,17 @@
 .details-left,
 .details-right {
   flex-basis: 20%;
+  flex-grow: 1;
 }
 
 .details-mid {
   flex-basis: 60%;
+  flex-grow: 1;
   margin: 0 30px;
 }
 
 .poster {
-  width: stretch;
+  max-width: 230px;
 }
 
 .bold {

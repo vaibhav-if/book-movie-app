@@ -69,9 +69,6 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
-  red: {
-    color: "red",
-  },
   tabBar: {
     backgroundColor: theme.palette.background.paper,
     color: "black",
@@ -80,15 +77,9 @@ const useStyles = makeStyles((theme) => ({
   form: {
     textAlign: "center",
   },
-  dispNone: {
-    display: "none",
-  },
-  dispBlock: {
-    display: "block",
-  },
 }));
 
-export default function LoginModal() {
+export default function LoginModal(props) {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = useState(getModalStyle);
@@ -97,19 +88,25 @@ export default function LoginModal() {
   const [value, setValue] = useState(0);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [reqUsername, setReqUsername] = useState("dispNone");
+  const [reqLoginPassword, setReqLoginPassword] = useState("dispNone");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [regPassword, setRegPassword] = useState("");
   const [contact, setContact] = useState("");
-  const [reqFirstName, setReqFirstName] = useState("classes.dispNone");
-  const [reqLastName, setReqLastName] = useState("classes.dispNone");
-  const [reqEmail, setReqEmail] = useState("classes.dispNone");
-  const [reqPassword, setReqPassword] = useState("classes.dispNone");
-  const [reqContact, setReqContact] = useState("classes.dispNone");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [reqFirstName, setReqFirstName] = useState("dispNone");
+  const [reqLastName, setReqLastName] = useState("dispNone");
+  const [reqEmail, setReqEmail] = useState("dispNone");
+  const [reqPassword, setReqPassword] = useState("dispNone");
+  const [reqContact, setReqContact] = useState("dispNone");
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    window.sessionStorage.getItem("access-token") ? true : false
+  );
+  const [regSuccess, setRegSuccess] = useState(false);
 
   const handleChange = (event, newValue) => {
+    setRegSuccess(false);
     setValue(newValue);
   };
   const handleOpen = () => {
@@ -117,6 +114,14 @@ export default function LoginModal() {
   };
   const handleClose = () => {
     setOpen(false);
+    setRegSuccess(false);
+    setReqFirstName("dispNone");
+    setReqLastName("dispNone");
+    setReqEmail("dispNone");
+    setReqPassword("dispNone");
+    setReqContact("dispNone");
+    setReqUsername("dispNone");
+    setReqLoginPassword("dispNone");
     setValue(0);
   };
 
@@ -151,6 +156,8 @@ export default function LoginModal() {
             );
             setUsername("");
             setPassword("");
+            setReqUsername("dispNone");
+            setReqLoginPassword("dispNone");
             setIsLoggedIn(true);
             handleClose();
           } else {
@@ -164,7 +171,12 @@ export default function LoginModal() {
       }
       loginForm();
     } else {
-      alert("Please fill both username and password");
+      username === ""
+        ? setReqUsername("dispBlock")
+        : setReqUsername("dispNone");
+      password === ""
+        ? setReqLoginPassword("dispBlock")
+        : setReqLoginPassword("dispNone");
     }
   };
   //----- Login Handling code ends here -----
@@ -224,7 +236,12 @@ export default function LoginModal() {
             setEmail("");
             setRegPassword("");
             setContact("");
-            alert("Registration Successful. Please Login!");
+            setReqFirstName("dispNone");
+            setReqLastName("dispNone");
+            setReqEmail("dispNone");
+            setReqPassword("dispNone");
+            setReqContact("dispNone");
+            setRegSuccess(true);
           } else {
             const error = new Error();
             error.message = result.message || "Something went wrong.";
@@ -237,22 +254,16 @@ export default function LoginModal() {
       registerForm();
     } else {
       firstName === ""
-        ? setReqFirstName("classes.dispBlock")
-        : setReqFirstName("classes.dispNone");
+        ? setReqFirstName("dispBlock")
+        : setReqFirstName("dispNone");
       lastName === ""
-        ? setReqLastName("classes.dispBlock")
-        : setReqLastName("classes.dispNone");
-      email === ""
-        ? setReqEmail("classes.dispBlock")
-        : setReqEmail("classes.dispNone");
+        ? setReqLastName("dispBlock")
+        : setReqLastName("dispNone");
+      email === "" ? setReqEmail("dispBlock") : setReqEmail("dispNone");
       regPassword === ""
-        ? setReqPassword("classes.dispBlock")
-        : setReqPassword("classes.dispNone");
-      contact === ""
-        ? setReqContact("classes.dispBlock")
-        : setReqContact("classes.dispNone");
-
-      alert("Please fill required fields");
+        ? setReqPassword("dispBlock")
+        : setReqPassword("dispNone");
+      contact === "" ? setReqContact("dispBlock") : setReqContact("dispNone");
     }
   };
   //----- Register Handling code ends here -----
@@ -274,6 +285,9 @@ export default function LoginModal() {
               value={username}
               onChange={usernameChangeHandler}
             />
+            <FormHelperText className={reqUsername}>
+              <span className="red">Required</span>
+            </FormHelperText>
           </FormControl>
           <FormControl required>
             <InputLabel htmlFor="password">Password</InputLabel>
@@ -283,6 +297,9 @@ export default function LoginModal() {
               value={password}
               onChange={passwordChangeHandler}
             />
+            <FormHelperText className={reqLoginPassword}>
+              <span className="red">Required</span>
+            </FormHelperText>
           </FormControl>
           <br />
           <br />
@@ -307,7 +324,7 @@ export default function LoginModal() {
               onChange={firstNameChangeHandler}
             />
             <FormHelperText className={reqFirstName}>
-              <span className={classes.red}>Required</span>
+              <span className="red">Required</span>
             </FormHelperText>
           </FormControl>
           <FormControl required>
@@ -319,7 +336,7 @@ export default function LoginModal() {
               onChange={lastNameChangeHandler}
             />
             <FormHelperText className={reqLastName}>
-              <span className={classes.red}>Required</span>
+              <span className="red">Required</span>
             </FormHelperText>
           </FormControl>
           <FormControl required>
@@ -331,7 +348,7 @@ export default function LoginModal() {
               onChange={emailChangeHandler}
             />
             <FormHelperText className={reqEmail}>
-              <span className={classes.red}>Required</span>
+              <span className="red">Required</span>
             </FormHelperText>
           </FormControl>
           <FormControl required>
@@ -343,7 +360,7 @@ export default function LoginModal() {
               onChange={regPasswordChangeHandler}
             />
             <FormHelperText className={reqPassword}>
-              <span className={classes.red}>Required</span>
+              <span className="red">Required</span>
             </FormHelperText>
           </FormControl>
           <FormControl required>
@@ -355,10 +372,16 @@ export default function LoginModal() {
               onChange={contactChangeHandler}
             />
             <FormHelperText className={reqContact}>
-              <span className={classes.red}>Required</span>
+              <span className="red">Required</span>
             </FormHelperText>
           </FormControl>
           <br />
+          <br />
+          {regSuccess ? (
+            <div>Registration Successful. Please Login!</div>
+          ) : (
+            <div></div>
+          )}
           <br />
           <Button
             variant="contained"

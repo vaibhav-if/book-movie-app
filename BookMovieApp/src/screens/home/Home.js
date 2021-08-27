@@ -53,6 +53,8 @@ export default function Home(props) {
       <div className="home-header">
         <div className="home-header-text">Upcoming Movies</div>
       </div>
+
+      {/* Upcoming Movies Grid */}
       <ImageList
         style={{ flexWrap: "nowrap", transform: "translateZ(0)" }}
         rowHeight={250}
@@ -70,6 +72,7 @@ export default function Home(props) {
           ))}
       </ImageList>
 
+      {/* Released Movies Grid */}
       <div className="flex-container">
         <div className="released-movie-grid">
           <ImageList rowHeight={350} gap={12} cols={4}>

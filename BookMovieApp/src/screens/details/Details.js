@@ -8,6 +8,20 @@ import ImageList from "@material-ui/core/ImageList";
 import ImageListItem from "@material-ui/core/ImageListItem";
 import ImageListItemBar from "@material-ui/core/ImageListItemBar";
 import { Link } from "react-router-dom";
+import Rating from "@material-ui/lab/Rating";
+import { withStyles } from "@material-ui/core/styles";
+
+const StyledRating = withStyles({
+  iconFilled: {
+    color: "yellow",
+  },
+  iconHover: {
+    color: "yellow",
+  },
+  iconEmpty: {
+    color: "black",
+  },
+})(Rating);
 
 export default function Details(props) {
   const [movieDetails, setMovieDetails] = useState({
@@ -25,6 +39,7 @@ export default function Details(props) {
     status: "",
     artists: [],
   });
+  const [rating, setRating] = React.useState(0);
 
   useEffect(() => {
     async function getMoviesList() {
@@ -92,11 +107,13 @@ export default function Details(props) {
               <span className="bold">Rate this movie: </span>
             </Typography>
             <Typography>
-              <StarBorderIcon />
-              <StarBorderIcon />
-              <StarBorderIcon />
-              <StarBorderIcon />
-              <StarBorderIcon />
+              <StyledRating
+                icon={<StarBorderIcon className="ratingIcon" />}
+                value={rating}
+                onChange={(event, newRating) => {
+                  setRating(newRating);
+                }}
+              />
             </Typography>
             <Typography className="artist">
               <span className="bold">Artists: </span>

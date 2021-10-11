@@ -13,7 +13,7 @@ export default function Home(props) {
   useEffect(() => {
     async function getMoviesList() {
       const rawResponse = await fetch(
-        `http://localhost:8085/api/v1/movies?page=1&limit=100&status=published`
+        `${props.baseUrl}/movies?page=1&limit=100&status=published`
       );
       const data = await rawResponse.json();
       setUpcomingMoviesList(data.movies);
@@ -24,7 +24,7 @@ export default function Home(props) {
   useEffect(() => {
     async function getMoviesList() {
       const rawResponse = await fetch(
-        `http://localhost:8085/api/v1/movies?page=1&limit=100&status=released`
+        `${props.baseUrl}/movies?page=1&limit=100&status=released`
       );
       const data = await rawResponse.json();
       setReleasedMoviesList(data.movies);
@@ -35,7 +35,7 @@ export default function Home(props) {
   const applyFilter = (filterString) => {
     async function getMoviesList() {
       const rawResponse = await fetch(
-        `http://localhost:8085/api/v1/movies?page=1&limit=100&status=released${filterString}`
+        `${props.baseUrl}/movies?page=1&limit=100&status=released${filterString}`
       );
       const data = await rawResponse.json();
       setReleasedMoviesList(data.movies);

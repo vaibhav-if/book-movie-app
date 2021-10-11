@@ -44,7 +44,7 @@ export default function Details(props) {
   useEffect(() => {
     async function getMoviesList() {
       const rawResponse = await fetch(
-        `http://localhost:8085/api/v1/movies/${props.match.params.id}`
+        `${props.baseUrl}/movies/${props.match.params.id}`
       );
       const data = await rawResponse.json();
       setMovieDetails(data);

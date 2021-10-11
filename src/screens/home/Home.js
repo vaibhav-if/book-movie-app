@@ -49,7 +49,9 @@ export default function Home(props) {
 
   return (
     <Fragment>
-      <Header />
+
+      <Header baseUrl={props.baseUrl}/>
+
       <div className="home-header">
         <div className="home-header-text">Upcoming Movies</div>
       </div>

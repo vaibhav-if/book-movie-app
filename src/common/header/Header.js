@@ -143,9 +143,8 @@ const handleChange = (event, newValue) => {
       async function loginForm() {
         const param = window.btoa(`${username}:${password}`);
         try {
-          //when using props.baseUrl it gives html response rather than JSON, why?
           const rawResponse = await fetch(
-            `http://localhost:8085/api/v1/auth/login`,
+            `${props.baseUrl}/auth/login`,
             {
               method: "POST",
               headers: {
@@ -224,7 +223,7 @@ const handleChange = (event, newValue) => {
 
         try {
           const rawResponse = await fetch(
-            `http://localhost:8085/api/v1/signup`,
+            `${props.baseUrl}/signup`,
             {
               body: JSON.stringify(params),
               method: "POST",

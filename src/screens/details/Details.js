@@ -13,10 +13,10 @@ import { withStyles } from "@material-ui/core/styles";
 
 const StyledRating = withStyles({
   iconFilled: {
-    color: "yellow",
+    color: "gold",
   },
   iconHover: {
-    color: "yellow",
+    color: "gold",
   },
   iconEmpty: {
     color: "black",
@@ -120,7 +120,7 @@ export default function Details(props) {
               <span className="bold">Artists: </span>
             </Typography>
 
-            <ImageList cols={2}>
+            <ImageList cols={2} rowHeight={250}>
               {movieDetails.artists.map((movieDetails) => (
                 <ImageListItem key={movieDetails["profile_url"]}>
                   <img

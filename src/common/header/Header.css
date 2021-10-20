@@ -1,27 +1,41 @@
 .header {
   background-color: #222;
-  height: 36px;
-  padding: 8px 32px 8px 16px;
+  height: 3rem;
+  padding: 0.4rem;
 }
 
 #logo {
   background-color: #ff7f7f;
-  height: 35px;
+  height: 2.2rem;
   float: left;
   animation: rotate-logo 7s linear infinite;
+  -webkit-animation: rotate-logo 7s linear infinite;
 }
 
 .nav-btn {
   float: right;
-  margin-right: 4px !important;
+  margin-right: 0.25rem !important;
 }
 
 /* The animation code */
 @keyframes rotate-logo {
   from {
+    -webkit-transform: rotateY(0);
     transform: rotateY(0);
   }
   to {
+    -webkit-transform: rotateY(360deg);
+    transform: rotateY(360deg);
+  }
+}
+
+@-webkit-keyframes rotate-logo {
+  from {
+    -webkit-transform: rotateY(0);
+    transform: rotateY(0);
+  }
+  to {
+    -webkit-transform: rotateY(360deg);
     transform: rotateY(360deg);
   }
 }

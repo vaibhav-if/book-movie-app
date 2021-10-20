@@ -1,13 +1,17 @@
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .container {
-  margin: 8px 12px 0 24px;
+  margin: 1rem;
 }
 
 .back-home-container {
-  height: 24px;
-}
-
-.back-home {
-  display: inline;
+  margin-left: 1rem;
 }
 
 .back-home:hover {
@@ -20,18 +24,20 @@
 
 .details-left,
 .details-right {
-  flex-basis: 20%;
-  flex-grow: 1;
+  flex: 20%;
+  max-width: 20%;
+  margin: 1rem;
 }
 
 .details-mid {
-  flex-basis: 60%;
-  flex-grow: 1;
-  margin: 0 30px;
+  flex: 60%;
+  max-width: 60%;
+  margin: 1rem;
 }
 
 .poster {
-  max-width: 230px;
+  max-width: 100%;
+  min-height: 250px;
 }
 
 .bold {
@@ -40,7 +46,7 @@
 
 .plot,
 .trailer {
-  margin-top: 16px !important;
+  margin-top: 1rem !important;
 }
 
 .youtube-video {
@@ -48,5 +54,24 @@
 }
 
 .artist {
-  margin: 16px 0 16px 0 !important;
+  margin: 1rem 0 1rem 0 !important;
+}
+
+@media screen and (max-width: 800px) {
+  .details-container {
+    flex-direction: column;
+  }
+
+  .details-left,
+  .details-mid,
+  .details-right {
+    flex: 100%;
+    max-width: 100%;
+    margin: 0.2rem;
+  }
+
+  .details-left {
+    display: flex;
+    justify-content: center;
+  }
 }

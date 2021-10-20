@@ -4,11 +4,15 @@ import Header from "../../common/header/Header";
 import ImageList from "@material-ui/core/ImageList";
 import ImageListItem from "@material-ui/core/ImageListItem";
 import ImageListItemBar from "@material-ui/core/ImageListItemBar";
+import useMediaQuery from '@mui/material/useMediaQuery';
 import "./Home.css";
 
 export default function Home(props) {
   const [upcomingMoviesList, setUpcomingMoviesList] = useState([]);
   const [releasedMoviesList, setReleasedMoviesList] = useState([]);
+  
+  const sm = useMediaQuery('(max-width:720px)');
+  const md = useMediaQuery('(max-width:880px)');
 
   useEffect(() => {
     async function getMoviesList() {
@@ -59,8 +63,8 @@ export default function Home(props) {
       {/* Upcoming Movies Grid */}
       <ImageList
         style={{ flexWrap: "nowrap", transform: "translateZ(0)" }}
-        rowHeight={250}
-        cols={6}
+        rowHeight={(sm) ? 200 : 250}
+        cols={(sm) ? 4 : 6}
       >
         {upcomingMoviesList.map((item) => (
           <ImageListItem key={item["poster_url"]}>
@@ -73,7 +77,7 @@ export default function Home(props) {
       {/* Released Movies Grid */}
       <div className="flex-container">
         <div className="released-movie-grid">
-          <ImageList rowHeight={350} gap={12} cols={4}>
+          <ImageList rowHeight={(sm) ? 300 : 350} gap={(sm) ? 6 : 12} cols={(md) ? 2 : 4}>
             {releasedMoviesList.map((item) => (
               <ImageListItem
                 key={item["poster_url"]}

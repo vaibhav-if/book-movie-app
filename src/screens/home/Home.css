@@ -1,10 +1,18 @@
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .home-header {
   background-color: #ff9999;
   text-align: center;
 }
 
 .home-header-text {
-  padding: 8px;
+  padding: 0.5rem;
   font-size: 1rem;
 }
 
@@ -13,15 +21,27 @@
 }
 
 .released-movie-grid {
-  flex-basis: 76%;
-  margin: 16px;
+  flex: 76%;
+  margin: 1rem;
 }
 
 .movies-filter {
-  flex-basis: 24%;
-  margin: 16px;
+  flex: 24%;
+  margin: 1rem;
 }
 
 .movie-poster:hover {
   cursor: pointer;
+  opacity: 80%;
+}
+
+@media screen and (max-width: 580px) {
+  .flex-container {
+    flex-direction: column-reverse;
+  }
+  .released-movie-grid,
+  .movies-filter {
+    flex: 100%;
+    margin: 0.5rem;
+  }
 }

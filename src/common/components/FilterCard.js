@@ -16,7 +16,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 240,
-    maxWidth: 240,
   },
   title: {
     fontSize: 14,
